@@ -43,6 +43,7 @@ function propmtCustItem(inventory) {
         .then(function(val) {
             console.log('value after inquier ===>', val)
             const choiceId = parseInt(val.choice)
+            console.log('This is the choiceId ===>', choiceId);
             var product = checkItem(choiceId, inventory)
             console.log('Product I slected ===>', product)
 
@@ -60,5 +61,16 @@ function checkItem (userChoice, inventory) {
 }
 
 function promptCustomerForQuantity(product){
-
+    inquirer
+        .prompt({
+            name: 'quantity',
+            type: 'input',
+            message:
+            'How many units would you like to buy?',
+        })
+        .then(function(val){
+            console.log('The quantity you have selected ===>', val);
+            const quantitySelected = parseInt(val.quantity);
+            console.log('This is the quantity that the customer selected ===>', quantitySelected);
+        })
 }
