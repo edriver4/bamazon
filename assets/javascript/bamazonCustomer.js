@@ -27,10 +27,6 @@ function retrieveAllItems() {
     })
 }
 
-// Prompt user for item they would like to buy.
-
-
-
 // Check for the store for the quantity of a particular item
 function propmtCustItem(inventory) {
     inquirer
@@ -67,9 +63,9 @@ function promptCustomerForQuantity(product) {
             type: 'input',
             message:
                 'How many units would you like to buy?',
-                validate: (input) => {
-                    return(!isNaN(parseFloat(input)) && input > 0);
-                }
+            validate: (input) => {
+                return (!isNaN(parseFloat(input)) && input > 0);
+            }
         })
         .then(function (val) {
             console.log('The quantity you have selected ===>', val);
@@ -82,8 +78,11 @@ function promptCustomerForQuantity(product) {
 function checkQuantity(selectedAmount, product) {
     if (selectedAmount <= product.stock_quantity) {
         console.log("Order accepted.");
-    } else {
-        console.log('Sorry you cannot that amount');
+    } else if (product.stock_quantity === 0){
+        console.log(`'Sorry, we don\'t have anymore of ${product.product_name}'`);
+    }
+    else {
+        console.log(`'Sorry, you cannot order that amount of ${product.product_name}s. Your order exceeds the amount we have in stock.'`);
     }
 
 }
