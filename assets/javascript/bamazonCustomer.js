@@ -38,9 +38,9 @@ function propmtCustItem(inventory) {
             name: 'choice',
             type: 'input',
             message:
-            'What is the item id you would like to purchase?',
+                'What is the item id you would like to purchase?',
         })
-        .then(function(val) {
+        .then(function (val) {
             console.log('value after inquier ===>', val)
             const choiceId = parseInt(val.choice)
             console.log('This is the choiceId ===>', choiceId);
@@ -51,26 +51,39 @@ function propmtCustItem(inventory) {
         })
 }
 
-function checkItem (userChoice, inventory) {
-   for (var i = 0; i < inventory.length; i++){
-       if (inventory[i].item_id === userChoice){
-           return inventory[i]
-       }
-   }
-   return null
+function checkItem(userChoice, inventory) {
+    for (var i = 0; i < inventory.length; i++) {
+        if (inventory[i].item_id === userChoice) {
+            return inventory[i]
+        }
+    }
+    return null
 }
 
-function promptCustomerForQuantity(product){
+function promptCustomerForQuantity(product) {
     inquirer
         .prompt({
             name: 'quantity',
             type: 'input',
             message:
-            'How many units would you like to buy?',
+                'How many units would you like to buy?',
+                validate: (input) => {
+                    return(!isNaN(parseFloat(input)) && input > 0);
+                }
         })
-        .then(function(val){
+        .then(function (val) {
             console.log('The quantity you have selected ===>', val);
             const quantitySelected = parseInt(val.quantity);
             console.log('This is the quantity that the customer selected ===>', quantitySelected);
+            checkQuantity(quantitySelected, product);
         })
+}
+
+function checkQuantity(selectedAmount, product) {
+    if (selectedAmount <= product.stock_quantity) {
+        console.log("Order accepted.");
+    } else {
+        console.log('Sorry you cannot that amount');
+    }
+
 }
