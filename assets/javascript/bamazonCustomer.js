@@ -105,4 +105,3 @@ function updateData(product, quantitySelected) {
         retrieveAllItems();
     })
 }
-
